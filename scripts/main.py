@@ -15,13 +15,13 @@ print(f'observation={observation} info={info}')
 for _ in range(1000):
     action = env.action_space.sample()
     observation, reward, terminated, truncated, info = env.step(action)
-    print(f'action={action} '
-          f'observation={observation} '
-          f'reward={reward} '
-          f'terminated={terminated} '
-          f'info={info}')
+    # print(f'action={action} '
+    #       f'observation={observation} '
+    #       f'reward={reward} '
+    #       f'terminated={terminated} '
+    #       f'info={info}')
 
-    if terminated:
+    if terminated or truncated:
         observation, info = env.reset()
         print(f'observation={observation} info={info}')
 

@@ -54,10 +54,11 @@ class Navigation(Env):
         if not self.action_space.contains(action):
             raise ValueError(f'Invalid action {action} ({type(action)})')
 
+        self.step_count += 1
         self._do_perform_action(action)
         observation = self._do_get_observation()
         terminated = self._do_check_if_terminated()
-        truncated = False
+        truncated = self.step_count >= 1000
         reward = self._do_calculate_reward(action)
         info = self._do_create_info()
 
@@ -95,6 +96,7 @@ class Navigation(Env):
         self._do_init_environment(options)
         observation = self._do_get_observation()
         info = self._do_create_info()
+        self.step_count = 0
 
         if self.render_mode == "human":
             self._render_frame()
